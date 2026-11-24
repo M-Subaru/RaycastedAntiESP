@@ -53,6 +53,18 @@ class RaycastConfigTest {
         assertTrue(retaining.keepClientEntityWhenHidden());
     }
 
+    @Test
+    void standingPlayersAreAlwaysShownOnlyWithinTheRadius() throws SerializationException {
+        ConfigurationNode node = entityNode(false);
+        assertFalse(PlayerConfig.load(node, "checks.player").alwaysShowStanding(1));
+        node.node("only-check-sneaking").set(true);
+        PlayerConfig standard = PlayerConfig.load(node, "checks.player");
+        assertTrue(standard.alwaysShowStanding(64 * 64));
+        assertFalse(standard.alwaysShowStanding(65 * 65));
+        node.node("only-check-sneaking-radius").set(100);
+        assertTrue(PlayerConfig.load(node, "checks.player").alwaysShowStanding(99 * 99));
+    }
+
     private static ConfigurationNode entityNode(boolean keepClientEntityWhenHidden) throws SerializationException {
         ConfigurationNode node = baseNode();
         node.node("hide-sounds-when-hidden").set(true);

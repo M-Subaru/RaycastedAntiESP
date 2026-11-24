@@ -29,23 +29,10 @@ Note that using external software to remove this command (for example by using a
     }
 
     public static void sendAttributionMessage(CommandSender sender) {
-        sender.sendRichMessage("<white>This server runs <gold><click:open_url:'https://github.com/Cubicake/RaycastedAntiESP'>RaycastedAntiESP</click></gold>, a packet-based anti-esp plugin.\n" +
+        sender.sendRichMessage("<white>This server runs a fork of <gold><click:open_url:'https://github.com/Cubicake/RaycastedAntiESP'>RaycastedAntiESP</click></gold> called RaycastedAntiESP (name tag range), a packet-based anti-esp plugin.\n" +
                 "\n" +
-                "<white>The plugin is <dark_green>copyright © 2025-2026 Cubicake and Contributors</dark_green>, and licenced under the <dark_green>AGPLv3 licence</dark_green>, which requires the source code to be available to all users of the plugin, including you. \n" +
-                "<white>As such, the source code can be found at <u><blue><hover:show_text:'Click to view source'><click:open_url:'https://github.com/Cubicake/RaycastedAntiESP'>https://github.com/Cubicake/RaycastedAntiESP</click></hover></blue></u>.");
-        /* Fork developers: Comment out the above message and uncomment this one, making sure to replace the placeholders with the appropriate information about your fork.
-// Some notes for fork developers:
-// While you are allowed to modify the message below, you must still include all of the legally obligated information. As such, I recommend you only modify the {bracketed} placeholders and the formatting of the message.
-// The legally obligated information you must include is as follows:
-// 1. You must not claim to be the original creator of the project. Therefore, the notice must still clearly include a mention of "copyright © 2025-2026 Cubicake and Contributors"
-// 2. You must include a link to the source code of your fork, which must be accessible to all players on all servers running your plugin, and include the full source code of your fork. This is a requirement of the AGPLv3 licence, which requires that all users of the software have access to the source code. Therefore, you must include a link to the source code of your fork in the message, and it must be easily accessible to users of the plugin.
-// 3. You may not remove this notice without providing an alternative **prominent** notice containing a link to the source code and the original copyright notice.
-
-        sender.sendRichMessage("<white>This server runs a fork of <gold><click:open_url:'https://github.com/Cubicake/RaycastedAntiESP'>RaycastedAntiESP</click></gold> called {YOUR_FORK_NAME_HERE}, a packet-based anti-esp plugin.\n" +
-                "\n" +
-                "<white>The original plugin is <dark_green>copyright © 2025-2026 Cubicake and Contributors</dark_green>, with this fork copyright © 2025-2026 {YOUR_NAMES_HERE}. The plugin in its entirety is licenced under the <dark_green>AGPLv3 licence</dark_green>, which requires the source code to be available to all users of the plugin, including you. \n" +
-                "<white>As such, the source code can be found at <u><blue><hover:show_text:'Click to view source'><click:open_url:'{YOUR_SOURCE_CODE_LINK_HERE}'>{YOUR_SOURCE_CODE_LINK_HERE}</click></hover></blue></u>.");
-        */
+                "<white>The original plugin is <dark_green>copyright © 2025-2026 Cubicake and Contributors</dark_green>, with this fork copyright © 2025-2026 M-Subaru. The plugin in its entirety is licenced under the <dark_green>AGPLv3 licence</dark_green>, which requires the source code to be available to all users of the plugin, including you. \n" +
+                "<white>As such, the source code can be found at <u><blue><hover:show_text:'Click to view source'><click:open_url:'https://github.com/M-Subaru/RaycastedAntiESP'>https://github.com/M-Subaru/RaycastedAntiESP</click></hover></blue></u>.");
         sender.sendRichMessage("A copy of the AGPLv3 Licence can be found at <hover:show_text:'Click to view licence'><u><blue><click:open_url:'https://www.gnu.org/licenses/agpl-3.0.html'>https://www.gnu.org/licenses/agpl-3.0.html</click></blue></u></hover>.\n" +
                 "\n" +
                 "Disclaimer: This software is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement.\n" +
