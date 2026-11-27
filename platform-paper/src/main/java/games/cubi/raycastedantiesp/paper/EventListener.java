@@ -20,12 +20,14 @@ import games.cubi.raycastedantiesp.paper.utils.PaperListener;
 import io.papermc.paper.event.player.PlayerClientLoadedWorldEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityRemoveEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -79,7 +81,15 @@ public class EventListener extends PaperListener {
 
         boolean hasBypassPermission = player.hasPermission("raycastedantiesp.bypass");
         playerData.setBypassPermission(hasBypassPermission);
+        playerData.setSpectator(player.getGameMode() == GameMode.SPECTATOR);
         updateOwnLocation(playerData, player.getEyeLocation());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onGameModeChange(PlayerGameModeChangeEvent event) {
+        PlayerData playerData = PlayerRegistry.getInstance().getPlayerData(event.getPlayer().getUniqueId());
+        if (playerData == null) return;
+        playerData.setSpectator(event.getNewGameMode() == GameMode.SPECTATOR);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

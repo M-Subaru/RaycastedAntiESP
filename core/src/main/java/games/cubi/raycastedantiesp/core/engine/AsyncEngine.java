@@ -357,6 +357,12 @@ public abstract class AsyncEngine implements Engine {
             timings.incrementProcessedPlayers();
 
             try {
+                if (playerData.isSpectator()) {
+                    // Every hidden entity and tile is rechecked each tick, so this shows all of them on the first
+                    // tick in spectator mode; once back in another mode the raycasts below hide them again.
+                    showAll(playerData, entityConfig, playerConfig, tileEntityConfig, blockView, currentTick, worldEpoch);
+                    continue;
+                }
                 if (entityConfig.enabled()) {
                     long sectionStartNanos = timings.startEntitySection();
                     checkEntities(playerData, playerLocation, entityConfig, debugParticles, blockView, currentTick, worldEpoch, timings);
@@ -380,7 +386,25 @@ public abstract class AsyncEngine implements Engine {
         }
     }
 
-    private void checkEntities(PlayerData player, Locatable playerLocation, EntityConfig entityConfig, boolean debugParticles, BlockView blockView, int currentTick, int worldEpoch, TickTimingBatch timings) {
+    private void showAll(PlayerData player, EntityConfig entityConfig, PlayerConfig playerConfig, TileEntityConfig tileEntityConfig,
+                         BlockView blockView, int currentTick, int worldEpoch) {
+        if (entityConfig.enabled()) {
+            EntityView<?> entityView = player.entityView();
+            entityView.forEachNeedingRecheckEntity(entityConfig.getVisibleRecheckIntervalTicks(), currentTick, false, worldEpoch,
+                    entity -> entityView.setVisibility(entity, true, currentTick, worldEpoch));
+        }
+        if (playerConfig.enabled()) {
+            EntityView<?> playerView = player.playerView();
+            playerView.forEachNeedingRecheckEntity(playerConfig.getVisibleRecheckIntervalTicks(), currentTick, false, worldEpoch,
+                    otherPlayer -> playerView.setVisibility(otherPlayer, true, currentTick, worldEpoch));
+        }
+        if (tileEntityConfig.enabled()) {
+            blockView.updateVisibilityForEachNeedingRecheck(tileEntityConfig.getVisibleRecheckIntervalTicks(), currentTick,
+                    blockView.tileEntityCheckModeToken(), worldEpoch, tileEntity -> BlockView.VisibilityResolver.SHOW);
+        }
+    }
+
+    private void checkEntities(PlayerData player,Locatable playerLocation, EntityConfig entityConfig, boolean debugParticles, BlockView blockView, int currentTick, int worldEpoch, TickTimingBatch timings) {
         EntityView<?> entityView = player.entityView();
 
         int checked = entityView.forEachNeedingRecheckEntity(entityConfig.getVisibleRecheckIntervalTicks(), currentTick, !(timings instanceof TickTimingBatchNoOp), worldEpoch, entity -> {

@@ -30,6 +30,7 @@ public class PlayerData {
     private final UUID playerUUID;
     private final int joinTick;
     private volatile boolean hasBypassPermission;
+    private volatile boolean spectator;
     private volatile boolean connected;
     private final ThreadSafeLocatable ownLocation;
 
@@ -142,6 +143,17 @@ public class PlayerData {
 
     public boolean hasBypassPermission() {
         return hasBypassPermission;
+    }
+
+    /**
+     * Spectators fly through blocks, so the engine shows them everything instead of raycasting.
+     */
+    public boolean isSpectator() {
+        return spectator;
+    }
+
+    public void setSpectator(boolean spectator) {
+        this.spectator = spectator;
     }
 
     public int getJoinTick() {
